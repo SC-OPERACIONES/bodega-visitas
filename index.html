@@ -10,264 +10,251 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
-  :root{
-    --ink:#2A1B3D;
-    --ink-soft:#665A7D;
-    --paper:#F6F3FA;
-    --card:#ffffff;
-    --line:#E1D6EF;
-    --amber:#6C2BD9;
-    --amber-dark:#4A1D96;
-    --amber-pale:#EDE3FA;
-    --blue:#2456C4;
-    --blue-pale:#E2EAFB;
-    --ok:#3a7d44;
-    --ok-pale:#e3f0e4;
-    --warn:#b8452f;
-    --warn-pale:#fbe3dd;
-    --pend:#8a8272;
-    --pend-pale:#eeeae1;
-    --mono: 'Courier New', ui-monospace, monospace;
-    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0; font-family:var(--sans); background:var(--paper); color:var(--ink);
-    padding:0 0 60px 0;
-  }
-  .stripe{
-    height:10px;
-    background:repeating-linear-gradient(135deg, var(--blue) 0 14px, var(--ink) 14px 28px);
-  }
-  header{
-    padding:28px 32px 20px; background:var(--ink); color:#f1ede2;
-  }
-  header .eyebrow{
-    font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--amber);
-    text-transform:uppercase; margin:0 0 6px;
-  }
-  header h1{ margin:0; font-size:24px; font-weight:600; }
-  header p{ margin:6px 0 0; font-size:13px; color:#c9c4b4; }
-  .wrap{ max-width:980px; margin:0 auto; padding:0 24px; }
-  nav.tabs{
-    display:flex; gap:2px; margin:22px 0 0; border-bottom:2px solid var(--ink);
-  }
-  nav.tabs button{
-    font-family:var(--sans); font-size:14px; font-weight:600; color:var(--ink-soft);
-    background:var(--pend-pale); border:none; border-radius:8px 8px 0 0;
-    padding:10px 18px; cursor:pointer;
-  }
-  nav.tabs button.active{ background:var(--ink); color:#f6f4ee; }
-  section.panel{
-    background:var(--card); border:1px solid var(--line); border-top:none;
-    padding:22px; border-radius:0 0 10px 10px;
-  }
-  h2.section-title{
-    font-size:16px; margin:0 0 4px; display:flex; align-items:center; gap:8px;
-  }
-  h2.section-title .tag{
-    font-family:var(--mono); font-size:11px; background:var(--amber-pale); color:var(--amber-dark);
-    padding:2px 8px; border-radius:4px;
-  }
-  p.hint{ font-size:13px; color:var(--ink-soft); margin:0 0 18px; }
-  table{ width:100%; border-collapse:collapse; font-size:14px; }
-  th{
-    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em;
-    color:var(--ink-soft); border-bottom:2px solid var(--ink); padding:8px 8px;
-  }
-  td{ padding:9px 8px; border-bottom:1px solid var(--line); vertical-align:middle; }
-  tr:hover td{ background:#faf8f2; }
-  select, input[type=text], input[type=date], input[type=time], textarea{
-    font-family:var(--sans); font-size:13px; padding:7px 8px; border:1px solid var(--line);
-    border-radius:6px; background:#fff; color:var(--ink); width:100%;
-  }
-  select:focus, input:focus, textarea:focus{ outline:2px solid var(--amber); outline-offset:1px; }
-  .btn{
-    font-family:var(--sans); font-size:13px; font-weight:600; padding:9px 16px;
-    border-radius:6px; border:1px solid var(--ink); background:var(--ink); color:#fff;
-    cursor:pointer;
-  }
-  .btn:hover{ background:#000; }
-  .btn.ghost{ background:#fff; color:var(--ink); }
-  .btn.ghost:hover{ background:var(--paper); }
-  .btn.small{ padding:5px 10px; font-size:12px; }
-  .row-actions{ display:flex; gap:10px; margin-top:16px; }
-  .badge{
-    display:inline-block; font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px;
-    text-transform:uppercase; letter-spacing:.03em;
-  }
-  .badge.ok{ background:var(--ok-pale); color:var(--ok); }
-  .badge.warn{ background:var(--warn-pale); color:var(--warn); }
-  .badge.pend{ background:var(--pend-pale); color:var(--pend); }
-  .badge.amber{ background:var(--amber-pale); color:var(--amber-dark); }
-  .visit-card{
-    border:1px solid var(--line); border-left:4px solid var(--amber); border-radius:8px;
-    padding:14px 16px; margin-bottom:12px; background:#fffefb;
-  }
-  .visit-card.done{ border-left-color:var(--ok); }
-  .visit-card.missed{ border-left-color:var(--warn); }
-  .visit-card h3{ margin:0 0 8px; font-size:15px; display:flex; justify-content:space-between; align-items:center;}
-  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .grid3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
-  label.field-label{ font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.03em; display:block; margin-bottom:4px; }
-  .filters{ display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
-  .filters select, .filters input{ width:auto; min-width:160px; }
-  .empty{
-    text-align:center; padding:40px 20px; color:var(--ink-soft); font-size:14px;
-    border:1px dashed var(--line); border-radius:8px;
-  }
-  .toast{
-    position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
-    background:var(--ink); color:#fff; padding:10px 20px; border-radius:8px; font-size:13px;
-    opacity:0; pointer-events:none; transition:opacity .25s;
-  }
-  .toast.show{ opacity:1; }
-  .save-bar{ display:flex; justify-content:flex-end; margin-top:16px; gap:10px; }
-  .footer-note{ font-family:var(--mono); font-size:11px; color:var(--pend); margin-top:24px; text-align:center; }
-  .mes-bar{ display:flex; align-items:center; gap:12px; margin-bottom:18px; flex-wrap:wrap; }
-  .mes-bar label{ font-size:12px; color:var(--ink-soft); font-weight:600; }
-  .mes-bar input[type=month]{ width:auto; }
-  .cal-titulo{ text-align:center; font-size:18px; font-weight:600; margin:0 0 16px; text-transform:capitalize; }
-  .cal-grid{ display:grid; grid-template-columns:repeat(7, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
-  .cal-dow{ background:var(--ink); color:#f6f4ee; font-size:11px; text-transform:uppercase; letter-spacing:.03em; text-align:center; padding:6px 0; }
-  .cal-cell{ background:#fff; min-height:92px; padding:6px; }
-  .cal-cell.blank{ background:var(--paper); }
-  .cal-cell .num{ font-size:12px; color:var(--ink-soft); font-weight:600; margin-bottom:4px; }
-  .cal-chip{ display:block; font-size:11px; background:var(--amber-pale); color:var(--amber-dark); border-radius:4px; padding:2px 5px; margin-bottom:3px; line-height:1.3; }
-  .chips{ display:flex; flex-wrap:wrap; gap:6px; }
-  .fecha-chip{ display:inline-flex; align-items:center; gap:4px; font-size:12px; background:var(--amber-pale); color:var(--amber-dark); padding:3px 6px 3px 10px; border-radius:14px; white-space:nowrap; }
-  .chip-x{ background:none; border:none; color:var(--amber-dark); font-size:15px; cursor:pointer; line-height:1; padding:0 2px; font-weight:700; }
-  .chip-x:hover{ color:var(--warn); }
-  @media print{
-    body *{ visibility:hidden; }
-    #panel-calendario, #panel-calendario *{ visibility:visible; }
-    .no-print, .no-print *{ visibility:hidden; }
-    #panel-calendario{ position:absolute; top:0; left:0; width:100%; padding:0; border:none; }
-    .cal-cell{ min-height:78px; }
-  }
-  @media (max-width:640px){
-    .grid2, .grid3{ grid-template-columns:1fr; }
-    header{ padding:20px; } .wrap{ padding:0 12px; }
-    .cal-cell{ min-height:64px; }
-  }
+:root{
+--ink:#2A1B3D;
+--ink-soft:#665A7D;
+--paper:#F6F3FA;
+--card:#ffffff;
+--line:#E1D6EF;
+--amber:#6C2BD9;
+--amber-dark:#4A1D96;
+--amber-pale:#EDE3FA;
+--blue:#2456C4;
+--blue-pale:#E2EAFB;
+--ok:#3a7d44;
+--ok-pale:#e3f0e4;
+--warn:#b8452f;
+--warn-pale:#fbe3dd;
+--pend:#8a8272;
+--pend-pale:#eeeae1;
+--mono: 'Courier New', ui-monospace, monospace;
+--sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+*{box-sizing:border-box;}
+body{
+margin:0; font-family:var(--sans); background:var(--paper); color:var(--ink);
+padding:0 0 60px 0;
+}
+.stripe{
+height:10px;
+background:repeating-linear-gradient(135deg, var(--blue) 0 14px, var(--ink) 14px 28px);
+}
+header{
+padding:28px 32px 20px; background:var(--ink); color:#f1ede2;
+}
+header .eyebrow{
+font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--amber);
+text-transform:uppercase; margin:0 0 6px;
+}
+header h1{ margin:0; font-size:24px; font-weight:600; }
+header p{ margin:6px 0 0; font-size:13px; color:#c9c4b4; }
+.wrap{ max-width:980px; margin:0 auto; padding:0 24px; }
+nav.tabs{
+display:flex; gap:2px; margin:22px 0 0; border-bottom:2px solid var(--ink);
+}
+nav.tabs button{
+font-family:var(--sans); font-size:14px; font-weight:600; color:var(--ink-soft);
+background:var(--pend-pale); border:none; border-radius:8px 8px 0 0;
+padding:10px 18px; cursor:pointer;
+}
+nav.tabs button.active{ background:var(--ink); color:#f6f4ee; }
+section.panel{
+background:var(--card); border:1px solid var(--line); border-top:none;
+padding:22px; border-radius:0 0 10px 10px;
+}
+h2.section-title{
+font-size:16px; margin:0 0 4px; display:flex; align-items:center; gap:8px;
+}
+h2.section-title .tag{
+font-family:var(--mono); font-size:11px; background:var(--amber-pale); color:var(--amber-dark);
+padding:2px 8px; border-radius:4px;
+}
+p.hint{ font-size:13px; color:var(--ink-soft); margin:0 0 18px; }
+table{ width:100%; border-collapse:collapse; font-size:14px; }
+th{
+text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em;
+color:var(--ink-soft); border-bottom:2px solid var(--ink); padding:8px 8px;
+}
+td{ padding:9px 8px; border-bottom:1px solid var(--line); vertical-align:middle; }
+tr:hover td{ background:#faf8f2; }
+select, input[type=text], input[type=date], input[type=time], textarea{
+font-family:var(--sans); font-size:13px; padding:7px 8px; border:1px solid var(--line);
+border-radius:6px; background:#fff; color:var(--ink); width:100%;
+}
+select:focus, input:focus, textarea:focus{ outline:2px solid var(--amber); outline-offset:1px; }
+.btn{
+font-family:var(--sans); font-size:13px; font-weight:600; padding:9px 16px;
+border-radius:6px; border:1px solid var(--ink); background:var(--ink); color:#fff;
+cursor:pointer;
+}
+.btn:hover{ background:#000; }
+.btn.ghost{ background:#fff; color:var(--ink); }
+.btn.ghost:hover{ background:var(--paper); }
+.btn.small{ padding:5px 10px; font-size:12px; }
+.row-actions{ display:flex; gap:10px; margin-top:16px; }
+.badge{
+display:inline-block; font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px;
+text-transform:uppercase; letter-spacing:.03em;
+}
+.badge.ok{ background:var(--ok-pale); color:var(--ok); }
+.badge.warn{ background:var(--warn-pale); color:var(--warn); }
+.badge.pend{ background:var(--pend-pale); color:var(--pend); }
+.badge.amber{ background:var(--amber-pale); color:var(--amber-dark); }
+.visit-card{
+border:1px solid var(--line); border-left:4px solid var(--amber); border-radius:8px;
+padding:14px 16px; margin-bottom:12px; background:#fffefb;
+}
+.visit-card.done{ border-left-color:var(--ok); }
+.visit-card.missed{ border-left-color:var(--warn); }
+.visit-card h3{ margin:0 0 8px; font-size:15px; display:flex; justify-content:space-between; align-items:center;}
+.grid2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.grid3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+label.field-label{ font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.03em; display:block; margin-bottom:4px; }
+.filters{ display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+.filters select, .filters input{ width:auto; min-width:160px; }
+.empty{
+text-align:center; padding:40px 20px; color:var(--ink-soft); font-size:14px;
+border:1px dashed var(--line); border-radius:8px;
+}
+.toast{
+position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+background:var(--ink); color:#fff; padding:10px 20px; border-radius:8px; font-size:13px;
+opacity:0; pointer-events:none; transition:opacity .25s;
+}
+.toast.show{ opacity:1; }
+.save-bar{ display:flex; justify-content:flex-end; margin-top:16px; gap:10px; }
+.footer-note{ font-family:var(--mono); font-size:11px; color:var(--pend); margin-top:24px; text-align:center; }
+.mes-bar{ display:flex; align-items:center; gap:12px; margin-bottom:18px; flex-wrap:wrap; }
+.mes-bar label{ font-size:12px; color:var(--ink-soft); font-weight:600; }
+.mes-bar input[type=month]{ width:auto; }
+.cal-titulo{ text-align:center; font-size:18px; font-weight:600; margin:0 0 16px; text-transform:capitalize; }
+.cal-grid{ display:grid; grid-template-columns:repeat(7, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+.cal-dow{ background:var(--ink); color:#f6f4ee; font-size:11px; text-transform:uppercase; letter-spacing:.03em; text-align:center; padding:6px 0; }
+.cal-cell{ background:#fff; min-height:92px; padding:6px; }
+.cal-cell.blank{ background:var(--paper); }
+.cal-cell .num{ font-size:12px; color:var(--ink-soft); font-weight:600; margin-bottom:4px; }
+.cal-chip{ display:block; font-size:11px; background:var(--amber-pale); color:var(--amber-dark); border-radius:4px; padding:2px 5px; margin-bottom:3px; line-height:1.3; }
+.chips{ display:flex; flex-wrap:wrap; gap:6px; }
+.fecha-chip{ display:inline-flex; align-items:center; gap:4px; font-size:12px; background:var(--amber-pale); color:var(--amber-dark); padding:3px 6px 3px 10px; border-radius:14px; white-space:nowrap; }
+.chip-x{ background:none; border:none; color:var(--amber-dark); font-size:15px; cursor:pointer; line-height:1; padding:0 2px; font-weight:700; }
+.chip-x:hover{ color:var(--warn); }
+@media (max-width:640px){
+.grid2, .grid3{ grid-template-columns:1fr; }
+header{ padding:20px; } .wrap{ padding:0 12px; }
+.cal-cell{ min-height:64px; }
+}
 </style>
 </head>
 <body>
-
 <div class="stripe"></div>
 <header>
-  <p class="eyebrow">Operaciones G. — Shopping Center</p>
-  <h1>Horario de visitas a bodega</h1>
-  <p>VISITA DE SUPERVISORES EN BODEGA 3:00 A 6:00 · 11 departamentos</p>
+<p class="eyebrow">Operaciones G. — Shopping Center</p>
+<h1>Horario de visitas a bodega</h1>
+<p>VISITA DE SUPERVISORES EN BODEGA 3:00 A 6:00 · 13 departamentos</p>
 </header>
-
 <div class="wrap">
-  <nav class="tabs">
-    <button class="active" data-tab="horario">Horario semanal</button>
-    <button data-tab="calendario">Calendario</button>
-    <button data-tab="registrar">Registrar visita</button>
-    <button data-tab="historial">Historial</button>
-  </nav>
+<nav class="tabs">
+<button class="active" data-tab="horario">Horario semanal</button>
+<button data-tab="calendario">Calendario</button>
+<button data-tab="registrar">Registrar visita</button>
+<button data-tab="historial">Historial</button>
+</nav>
 
-  <section class="panel" id="panel-horario">
-    <h2 class="section-title">Asignación de fechas <span class="tag">Editable por supervisora de bodega</span></h2>
-    <p class="hint">El horario se define por mes. A cada departamento se le asignan una o varias fechas específicas del mes, dentro del horario de 3:00 p.m. a 6:00 p.m. Los departamentos que se repiten durante el mes pueden tener varias fechas; los que visitan una sola vez, solo una.</p>
-    <div class="mes-bar">
-      <label for="mes-horario">Mes</label>
-      <input type="month" id="mes-horario">
-      <button class="btn ghost small" id="btn-copiar-mes-anterior">Repetir patrón del mes anterior</button>
-    </div>
-    <table id="tabla-horario">
-      <thead><tr><th>Departamento</th><th>Fechas asignadas</th></tr></thead>
-      <tbody></tbody>
-    </table>
-  </section>
+<section class="panel" id="panel-horario">
+<h2 class="section-title">Asignación de fechas <span class="tag">Editable por supervisora de bodega</span></h2>
+<p class="hint">El horario se define por mes. A cada departamento se le asignan una o varias fechas específicas del mes, dentro del horario de 3:00 p.m. a 6:00 p.m. Los departamentos que se repiten durante el mes pueden tener varias fechas; los que visitan una sola vez, solo una.</p>
+<div class="mes-bar">
+<label for="mes-horario">Mes</label>
+<input type="month" id="mes-horario">
+<button class="btn ghost small" id="btn-copiar-mes-anterior">Repetir patrón del mes anterior</button>
+</div>
+<table id="tabla-horario">
+<thead><tr><th>Departamento</th><th>Fechas asignadas</th></tr></thead>
+<tbody></tbody>
+</table>
+</section>
 
-  <section class="panel" id="panel-calendario" style="display:none;">
-    <h2 class="section-title no-print">Calendario de visitas a bodega</h2>
-    <p class="hint no-print">Vista mensual del horario asignado. Cambia de mes o imprime el calendario para colocarlo en bodega.</p>
-    <div class="mes-bar no-print">
-      <label for="mes-calendario">Mes</label>
-      <input type="month" id="mes-calendario">
-      <button class="btn ghost" id="btn-descargar-png">Descargar imagen (PNG)</button>
-      <button class="btn" id="btn-imprimir">Imprimir calendario</button>
-    </div>
-    <div id="captura-calendario" style="background:#ffffff; padding:12px;">
-      <p class="cal-titulo" id="cal-titulo"></p>
-      <div class="cal-grid" id="cal-grid"></div>
-    </div>
-  </section>
+<section class="panel" id="panel-calendario" style="display:none;">
+<h2 class="section-title">Calendario de visitas a bodega</h2>
+<p class="hint">Vista mensual del horario asignado. Cambia de mes o descarga la imagen para colocarla en bodega.</p>
+<div class="mes-bar">
+<label for="mes-calendario">Mes</label>
+<input type="month" id="mes-calendario">
+<button class="btn ghost" id="btn-descargar-png">Descargar imagen (PNG)</button>
+</div>
+<div id="captura-calendario" style="background:#ffffff; padding:12px;">
+<p class="cal-titulo" id="cal-titulo"></p>
+<div class="cal-grid" id="cal-grid"></div>
+</div>
+</section>
 
-  <section class="panel" id="panel-registrar" style="display:none;">
-    <h2 class="section-title">Registrar cumplimiento de visita</h2>
-    <p class="hint">Selecciona la fecha para ver qué departamentos tienen visita programada ese día, según el horario semanal.</p>
-    <div class="grid2" style="max-width:340px; margin-bottom:18px;">
-      <div>
-        <label class="field-label">Fecha</label>
-        <input type="date" id="fecha-registro">
-      </div>
-      <div>
-        <label class="field-label">Día correspondiente</label>
-        <input type="text" id="dia-registro" disabled>
-      </div>
-    </div>
-    <div id="lista-visitas-dia"></div>
-  </section>
+<section class="panel" id="panel-registrar" style="display:none;">
+<h2 class="section-title">Registrar cumplimiento de visita</h2>
+<p class="hint">Selecciona la fecha para ver qué departamentos tienen visita programada ese día, según el horario semanal.</p>
+<div class="grid2" style="max-width:340px; margin-bottom:18px;">
+<div>
+<label class="field-label">Fecha</label>
+<input type="date" id="fecha-registro">
+</div>
+<div>
+<label class="field-label">Día correspondiente</label>
+<input type="text" id="dia-registro" disabled>
+</div>
+</div>
+<div id="lista-visitas-dia"></div>
+</section>
 
-  <section class="panel" id="panel-historial" style="display:none;">
-    <h2 class="section-title">Historial de visitas</h2>
-    <p class="hint">Consulta y filtra el registro de cumplimiento por departamento o estado.</p>
-    <div class="filters">
-      <select id="filtro-depto"><option value="">Todos los departamentos</option></select>
-      <select id="filtro-estado">
-        <option value="">Todos los estados</option>
-        <option value="A tiempo">A tiempo</option>
-        <option value="Tarde">Tarde</option>
-        <option value="No se presentó">No se presentó</option>
-        <option value="Reprogramado">Reprogramado</option>
-      </select>
-      <button class="btn ghost small" id="btn-exportar">Exportar CSV</button>
-    </div>
-    <table id="tabla-historial">
-      <thead><tr><th>Fecha</th><th>Departamento</th><th>Hora llegada</th><th>Estado</th><th>Observaciones</th><th></th></tr></thead>
-      <tbody></tbody>
-    </table>
-    <div id="historial-empty" class="empty" style="display:none;">Aún no hay visitas registradas.</div>
-  </section>
+<section class="panel" id="panel-historial" style="display:none;">
+<h2 class="section-title">Historial de visitas</h2>
+<p class="hint">Consulta y filtra el registro de cumplimiento por departamento o estado.</p>
+<div class="filters">
+<select id="filtro-depto"><option value="">Todos los departamentos</option></select>
+<select id="filtro-estado">
+<option value="">Todos los estados</option>
+<option value="A tiempo">A tiempo</option>
+<option value="Tarde">Tarde</option>
+<option value="No se presentó">No se presentó</option>
+<option value="Reprogramado">Reprogramado</option>
+</select>
+<button class="btn ghost small" id="btn-exportar">Exportar CSV</button>
+</div>
+<table id="tabla-historial">
+<thead><tr><th>Fecha</th><th>Departamento</th><th>Hora llegada</th><th>Estado</th><th>Observaciones</th><th></th></tr></thead>
+<tbody></tbody>
+</table>
+<div id="historial-empty" class="empty" style="display:none;">Aún no hay visitas registradas.</div>
+</section>
 
-  <p class="footer-note">
-    Datos compartidos entre todos los usuarios de esta herramienta · Guardado automático
-    <span id="indicador-offline" style="display:none; margin-left:8px; color:var(--warn);"></span>
-  </p>
+<p class="footer-note">
+Datos compartidos entre todos los usuarios de esta herramienta · Guardado automático
+<span id="indicador-offline" style="display:none; margin-left:8px; color:var(--warn);"></span>
+</p>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-const DEPARTAMENTOS = ["Caballero","Escolar","Cosmético","Niña","Bonage","Bebé","Popular","Boutique","Ropa interior","Niño","Uniforme de enfermería"];
+const DEPARTAMENTOS = ["Caballero","Escolar","Cosmético","Niña","Bonage","Bebé","Popular","Boutique","Ropa interior","Niño","Uniforme de enfermería","Hogar","Juguetería"];
 const DIAS = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
 const MESES_NOMBRE = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 const KEY_VISITAS = "bodega-visitas";
 function keyHorarioMes(mes){ return "bodega-horario-" + mes; }
 function mesActualISO(){ const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,'0'); }
 function mesAnterior(mes){
-  const [y,m] = mes.split('-').map(Number);
-  const d = new Date(y, m-2, 1);
-  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,'0');
+const [y,m] = mes.split('-').map(Number);
+const d = new Date(y, m-2, 1);
+return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,'0');
 }
-
 let mesActivo = mesActualISO();
 let horario = {};
 let visitas = [];
-
 function toast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2200);
+const t = document.getElementById('toast');
+t.textContent = msg;
+t.classList.add('show');
+setTimeout(()=>t.classList.remove('show'), 2200);
 }
-
 function uid(){ return 'v' + Date.now() + Math.random().toString(16).slice(2,7); }
 
 // ==== Conexión con Google Apps Script (reemplaza a window.storage) ====
@@ -279,506 +266,486 @@ const COLA_KEY = "bodega-cola-pendiente";
 let sincronizando = false;
 
 function leerCacheLocal(key){
-  try{
-    const raw = localStorage.getItem(CACHE_PREFIX + key);
-    return raw ? JSON.parse(raw) : null;
-  }catch(e){ return null; }
+try{
+const raw = localStorage.getItem(CACHE_PREFIX + key);
+return raw ? JSON.parse(raw) : null;
+}catch(e){ return null; }
 }
 function guardarCacheLocal(key, value){
-  try{ localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(value)); }catch(e){}
+try{ localStorage.setItem(CACHE_PREFIX + key, JSON.stringify(value)); }catch(e){}
 }
 function leerCola(){
-  try{ return JSON.parse(localStorage.getItem(COLA_KEY) || '[]'); }catch(e){ return []; }
+try{ return JSON.parse(localStorage.getItem(COLA_KEY) || '[]'); }catch(e){ return []; }
 }
 function guardarCola(cola){
-  try{ localStorage.setItem(COLA_KEY, JSON.stringify(cola)); }catch(e){}
+try{ localStorage.setItem(COLA_KEY, JSON.stringify(cola)); }catch(e){}
 }
 function encolarCambio(key, value){
-  const cola = leerCola().filter(item => item.key !== key); // solo el último valor por key
-  cola.push({ key, value, ts: Date.now() });
-  guardarCola(cola);
-  actualizarIndicadorPendientes();
+const cola = leerCola().filter(item => item.key !== key); // solo el último valor por key
+cola.push({ key, value, ts: Date.now() });
+guardarCola(cola);
+actualizarIndicadorPendientes();
 }
 
 async function storageGet(key){
-  // Intenta traer del servidor; si falla (sin conexión), usa la última copia local.
-  try{
-    const url = `${APPS_SCRIPT_URL}?action=get&key=${encodeURIComponent(key)}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    if(!data.ok) throw new Error(data.error || 'error desconocido');
-    const valor = data.value ? JSON.parse(data.value) : null;
-    if(valor !== null) guardarCacheLocal(key, valor);
-    return valor;
-  }catch(e){
-    console.warn('Sin conexión o error, usando copia local para', key, e);
-    return leerCacheLocal(key);
-  }
+// Intenta traer del servidor; si falla (sin conexión), usa la última copia local.
+try{
+const url = `${APPS_SCRIPT_URL}?action=get&key=${encodeURIComponent(key)}`;
+const res = await fetch(url);
+const data = await res.json();
+if(!data.ok) throw new Error(data.error || 'error desconocido');
+const valor = data.value ? JSON.parse(data.value) : null;
+if(valor !== null) guardarCacheLocal(key, valor);
+return valor;
+}catch(e){
+console.warn('Sin conexión o error, usando copia local para', key, e);
+return leerCacheLocal(key);
+}
 }
 
 async function storageSet(key, value){
-  guardarCacheLocal(key, value); // siempre guarda local de inmediato
-  try{
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'set', key, value: JSON.stringify(value) })
-    });
-    const data = await res.json();
-    if(!data.ok) throw new Error(data.error || 'error desconocido');
-    return true;
-  }catch(e){
-    console.warn('No se pudo guardar en el servidor, se encola para reintentar:', e);
-    encolarCambio(key, value);
-    return true; // el dato ya está seguro localmente y se reintentará
-  }
+guardarCacheLocal(key, value); // siempre guarda local de inmediato
+try{
+const res = await fetch(APPS_SCRIPT_URL, {
+method: 'POST',
+body: JSON.stringify({ action: 'set', key, value: JSON.stringify(value) })
+});
+const data = await res.json();
+if(!data.ok) throw new Error(data.error || 'error desconocido');
+return true;
+}catch(e){
+console.warn('No se pudo guardar en el servidor, se encola para reintentar:', e);
+encolarCambio(key, value);
+return true; // el dato ya está seguro localmente y se reintentará
+}
 }
 
 async function sincronizarCola(){
-  if(sincronizando) return;
-  const cola = leerCola();
-  if(cola.length === 0) return;
-  sincronizando = true;
-  const restantes = [];
-  for(const item of cola){
-    try{
-      const res = await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify({ action: 'set', key: item.key, value: JSON.stringify(item.value) })
-      });
-      const data = await res.json();
-      if(!data.ok) throw new Error(data.error || 'error');
-    }catch(e){
-      restantes.push(item);
-    }
-  }
-  guardarCola(restantes);
-  sincronizando = false;
-  actualizarIndicadorPendientes();
-  if(restantes.length === 0 && cola.length > 0){
-    toast('Cambios pendientes sincronizados ✓');
-  }
+if(sincronizando) return;
+const cola = leerCola();
+if(cola.length === 0) return;
+sincronizando = true;
+const restantes = [];
+for(const item of cola){
+try{
+const res = await fetch(APPS_SCRIPT_URL, {
+method: 'POST',
+body: JSON.stringify({ action: 'set', key: item.key, value: JSON.stringify(item.value) })
+});
+const data = await res.json();
+if(!data.ok) throw new Error(data.error || 'error');
+}catch(e){
+restantes.push(item);
+}
+}
+guardarCola(restantes);
+sincronizando = false;
+actualizarIndicadorPendientes();
+if(restantes.length === 0 && cola.length > 0){
+toast('Cambios pendientes sincronizados ✓');
+}
 }
 
 function actualizarIndicadorPendientes(){
-  const n = leerCola().length;
-  const el = document.getElementById('indicador-offline');
-  if(!el) return;
-  if(n > 0){
-    el.style.display = 'inline-block';
-    el.textContent = `⏳ ${n} cambio(s) sin sincronizar`;
-  } else {
-    el.style.display = 'none';
-  }
+const n = leerCola().length;
+const el = document.getElementById('indicador-offline');
+if(!el) return;
+if(n > 0){
+el.style.display = 'inline-block';
+el.textContent = `⏳ ${n} cambio(s) sin sincronizar`;
+} else {
+el.style.display = 'none';
+}
 }
 
 window.addEventListener('online', sincronizarCola);
 setInterval(sincronizarCola, 20000);
 
 function diaDeFecha(fechaStr){
-  if(!fechaStr) return '';
-  const [y,m,d] = fechaStr.split('-').map(Number);
-  const dt = new Date(y, m-1, d);
-  const idx = (dt.getDay() + 6) % 7; // lunes=0
-  return DIAS[idx];
+if(!fechaStr) return '';
+const [y,m,d] = fechaStr.split('-').map(Number);
+const dt = new Date(y, m-1, d);
+const idx = (dt.getDay() + 6) % 7; // lunes=0
+return DIAS[idx];
 }
-
 function limitesDelMes(mes){
-  const [y,m] = mes.split('-').map(Number);
-  const diasEnMes = new Date(y, m, 0).getDate();
-  return { min: `${mes}-01`, max: `${mes}-${String(diasEnMes).padStart(2,'0')}` };
+const [y,m] = mes.split('-').map(Number);
+const diasEnMes = new Date(y, m, 0).getDate();
+return { min: `${mes}-01`, max: `${mes}-${String(diasEnMes).padStart(2,'0')}` };
 }
-
 function renderChipsFechas(dep, contenedor){
-  contenedor.innerHTML = '';
-  const fechas = horario[dep] || [];
-  if(fechas.length === 0){
-    const span = document.createElement('span');
-    span.style.cssText = 'font-size:12px; color:var(--pend);';
-    span.textContent = 'Sin fechas asignadas';
-    contenedor.appendChild(span);
-    return;
-  }
-  fechas.forEach(fecha=>{
-    const [, mm, dd] = fecha.split('-');
-    const diaSemana = diaDeFecha(fecha).slice(0,3);
-    const chip = document.createElement('span');
-    chip.className = 'fecha-chip';
-    chip.innerHTML = `${dd}/${mm} · ${diaSemana} <button class="chip-x" aria-label="Quitar fecha">×</button>`;
-    chip.querySelector('.chip-x').addEventListener('click', async ()=>{
-      horario[dep] = (horario[dep]||[]).filter(f=>f!==fecha);
-      renderChipsFechas(dep, contenedor);
-      renderCalendario();
-      await persistirHorario();
-    });
-    contenedor.appendChild(chip);
-  });
+contenedor.innerHTML = '';
+const fechas = horario[dep] || [];
+if(fechas.length === 0){
+const span = document.createElement('span');
+span.style.cssText = 'font-size:12px; color:var(--pend);';
+span.textContent = 'Sin fechas asignadas';
+contenedor.appendChild(span);
+return;
 }
-
+fechas.forEach(fecha=>{
+const [, mm, dd] = fecha.split('-');
+const diaSemana = diaDeFecha(fecha).slice(0,3);
+const chip = document.createElement('span');
+chip.className = 'fecha-chip';
+chip.innerHTML = `${dd}/${mm} · ${diaSemana} <button class="chip-x" aria-label="Quitar fecha">×</button>`;
+chip.querySelector('.chip-x').addEventListener('click', async ()=>{
+horario[dep] = (horario[dep]||[]).filter(f=>f!==fecha);
+renderChipsFechas(dep, contenedor);
+renderCalendario();
+await persistirHorario();
+});
+contenedor.appendChild(chip);
+});
+}
 function renderHorarioTabla(){
-  const tbody = document.querySelector('#tabla-horario tbody');
-  tbody.innerHTML = '';
-  const { min, max } = limitesDelMes(mesActivo);
-  DEPARTAMENTOS.forEach(dep=>{
-    if(!horario[dep]) horario[dep] = [];
-    const tr = document.createElement('tr');
-    const tdNombre = document.createElement('td');
-    tdNombre.textContent = dep;
-    const tdFechas = document.createElement('td');
-    const chipsDiv = document.createElement('div');
-    chipsDiv.className = 'chips';
-    const addRow = document.createElement('div');
-    addRow.style.cssText = 'display:flex; gap:6px; margin-top:8px;';
-    addRow.innerHTML = `
-      <input type="date" class="i-nueva-fecha" min="${min}" max="${max}" style="max-width:170px;">
-      <button class="btn ghost small btn-agregar-fecha">Agregar</button>
-    `;
-    tdFechas.appendChild(chipsDiv);
-    tdFechas.appendChild(addRow);
-    tr.appendChild(tdNombre); tr.appendChild(tdFechas);
-    tbody.appendChild(tr);
-    renderChipsFechas(dep, chipsDiv);
-    addRow.querySelector('.btn-agregar-fecha').addEventListener('click', async ()=>{
-      const input = addRow.querySelector('.i-nueva-fecha');
-      const val = input.value;
-      if(!val){ toast('Selecciona una fecha'); return; }
-      if(!val.startsWith(mesActivo)){ toast('La fecha debe estar dentro del mes seleccionado'); return; }
-      if(!horario[dep].includes(val)){
-        horario[dep].push(val);
-        horario[dep].sort();
-      }
-      input.value = '';
-      renderChipsFechas(dep, chipsDiv);
-      renderCalendario();
-      await persistirHorario();
-    });
-  });
+const tbody = document.querySelector('#tabla-horario tbody');
+tbody.innerHTML = '';
+const { min, max } = limitesDelMes(mesActivo);
+DEPARTAMENTOS.forEach(dep=>{
+if(!horario[dep]) horario[dep] = [];
+const tr = document.createElement('tr');
+const tdNombre = document.createElement('td');
+tdNombre.textContent = dep;
+const tdFechas = document.createElement('td');
+const chipsDiv = document.createElement('div');
+chipsDiv.className = 'chips';
+const addRow = document.createElement('div');
+addRow.style.cssText = 'display:flex; gap:6px; margin-top:8px;';
+addRow.innerHTML = `
+<input type="date" class="i-nueva-fecha" min="${min}" max="${max}" style="max-width:170px;">
+<button class="btn ghost small btn-agregar-fecha">Agregar</button>
+`;
+tdFechas.appendChild(chipsDiv);
+tdFechas.appendChild(addRow);
+tr.appendChild(tdNombre); tr.appendChild(tdFechas);
+tbody.appendChild(tr);
+renderChipsFechas(dep, chipsDiv);
+addRow.querySelector('.btn-agregar-fecha').addEventListener('click', async ()=>{
+const input = addRow.querySelector('.i-nueva-fecha');
+const val = input.value;
+if(!val){ toast('Selecciona una fecha'); return; }
+if(!val.startsWith(mesActivo)){ toast('La fecha debe estar dentro del mes seleccionado'); return; }
+if(!horario[dep].includes(val)){
+horario[dep].push(val);
+horario[dep].sort();
+}
+input.value = '';
+renderChipsFechas(dep, chipsDiv);
+renderCalendario();
+await persistirHorario();
+});
+});
 }
 
 async function descargarCalendarioPNG(){
-  const panel = document.getElementById('panel-calendario');
-  const estabaOculto = panel.style.display === 'none';
-  if(estabaOculto){
-    panel.style.display = 'block';
-    panel.style.position = 'fixed';
-    panel.style.left = '-9999px';
-    panel.style.top = '0';
-  }
-  renderCalendario();
-  await new Promise(r=>setTimeout(r, 60));
-  try{
-    if(typeof html2canvas !== 'function'){ throw new Error('html2canvas no disponible'); }
-    const el = document.getElementById('captura-calendario');
-    const canvas = await html2canvas(el, { backgroundColor:'#ffffff', scale:2 });
-    await new Promise(resolve=>{
-      canvas.toBlob(blob=>{
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `calendario_bodega_${mesActivo}.png`;
-        a.click();
-        URL.revokeObjectURL(url);
-        resolve();
-      });
-    });
-    toast('Imagen del calendario descargada');
-  }catch(e){
-    console.error(e);
-    toast('No se pudo generar la imagen');
-  }finally{
-    if(estabaOculto){
-      panel.style.position = '';
-      panel.style.left = '';
-      panel.style.top = '';
-      panel.style.display = 'none';
-    }
-  }
+const panel = document.getElementById('panel-calendario');
+const estabaOculto = panel.style.display === 'none';
+if(estabaOculto){
+panel.style.display = 'block';
+panel.style.position = 'fixed';
+panel.style.left = '-9999px';
+panel.style.top = '0';
+}
+renderCalendario();
+await new Promise(r=>setTimeout(r, 60));
+try{
+if(typeof html2canvas !== 'function'){ throw new Error('html2canvas no disponible'); }
+const el = document.getElementById('captura-calendario');
+const canvas = await html2canvas(el, { backgroundColor:'#ffffff', scale:2 });
+await new Promise(resolve=>{
+canvas.toBlob(blob=>{
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = `calendario_bodega_${mesActivo}.png`;
+a.click();
+URL.revokeObjectURL(url);
+resolve();
+});
+});
+toast('Imagen del calendario descargada');
+}catch(e){
+console.error(e);
+toast('No se pudo generar la imagen');
+}finally{
+if(estabaOculto){
+panel.style.position = '';
+panel.style.left = '';
+panel.style.top = '';
+panel.style.display = 'none';
+}
+}
 }
 
 async function persistirHorario(){
-  const ok = await storageSet(keyHorarioMes(mesActivo), horario, true);
-  if(!ok){ toast('No se pudo guardar el horario'); return; }
-  renderListaVisitasDia();
+const ok = await storageSet(keyHorarioMes(mesActivo), horario, true);
+if(!ok){ toast('No se pudo guardar el horario'); return; }
+renderListaVisitasDia();
 }
-
 async function cargarHorarioMes(mes){
-  const h = await storageGet(keyHorarioMes(mes), true);
-  horario = h || {};
-  renderHorarioTabla();
-  renderListaVisitasDia();
-  renderCalendario();
+const h = await storageGet(keyHorarioMes(mes), true);
+horario = h || {};
+renderHorarioTabla();
+renderListaVisitasDia();
+renderCalendario();
 }
-
 function patronSemanalDe(horarioObj){
-  const patron = {};
-  Object.entries(horarioObj).forEach(([dep, fechas])=>{
-    const dias = new Set((fechas||[]).map(f=>diaDeFecha(f)));
-    patron[dep] = [...dias];
-  });
-  return patron;
+const patron = {};
+Object.entries(horarioObj).forEach(([dep, fechas])=>{
+const dias = new Set((fechas||[]).map(f=>diaDeFecha(f)));
+patron[dep] = [...dias];
+});
+return patron;
 }
-
 function fechasParaPatronEnMes(patron, mes){
-  const [y,m] = mes.split('-').map(Number);
-  const diasEnMes = new Date(y, m, 0).getDate();
-  const resultado = {};
-  Object.entries(patron).forEach(([dep, diasSemana])=>{
-    if(!diasSemana.length) return;
-    const fechas = [];
-    for(let dia=1; dia<=diasEnMes; dia++){
-      const fecha = new Date(y, m-1, dia);
-      const nombreDia = DIAS[(fecha.getDay()+6)%7];
-      if(diasSemana.includes(nombreDia)){
-        fechas.push(`${y}-${String(m).padStart(2,'0')}-${String(dia).padStart(2,'0')}`);
-      }
-    }
-    if(fechas.length) resultado[dep] = fechas;
-  });
-  return resultado;
+const [y,m] = mes.split('-').map(Number);
+const diasEnMes = new Date(y, m, 0).getDate();
+const resultado = {};
+Object.entries(patron).forEach(([dep, diasSemana])=>{
+if(!diasSemana.length) return;
+const fechas = [];
+for(let dia=1; dia<=diasEnMes; dia++){
+const fecha = new Date(y, m-1, dia);
+const nombreDia = DIAS[(fecha.getDay()+6)%7];
+if(diasSemana.includes(nombreDia)){
+fechas.push(`${y}-${String(m).padStart(2,'0')}-${String(dia).padStart(2,'0')}`);
 }
-
+}
+if(fechas.length) resultado[dep] = fechas;
+});
+return resultado;
+}
 async function copiarMesAnterior(){
-  const anterior = mesAnterior(mesActivo);
-  const h = await storageGet(keyHorarioMes(anterior), true);
-  if(!h || Object.keys(h).length === 0){
-    toast('No hay horario guardado para el mes anterior');
-    return;
-  }
-  const patron = patronSemanalDe(h);
-  horario = fechasParaPatronEnMes(patron, mesActivo);
-  renderHorarioTabla();
-  renderCalendario();
-  await persistirHorario();
-  toast('Fechas generadas y guardadas según el patrón del mes anterior');
+const anterior = mesAnterior(mesActivo);
+const h = await storageGet(keyHorarioMes(anterior), true);
+if(!h || Object.keys(h).length === 0){
+toast('No hay horario guardado para el mes anterior');
+return;
 }
-
+const patron = patronSemanalDe(h);
+horario = fechasParaPatronEnMes(patron, mesActivo);
+renderHorarioTabla();
+renderCalendario();
+await persistirHorario();
+toast('Fechas generadas y guardadas según el patrón del mes anterior');
+}
 function departamentosDeFecha(fechaISO){
-  return DEPARTAMENTOS.filter(dep => (horario[dep]||[]).includes(fechaISO));
+return DEPARTAMENTOS.filter(dep => (horario[dep]||[]).includes(fechaISO));
 }
-
 function visitaRegistradaHoy(dep, fecha){
-  return visitas.find(v => v.dep === dep && v.fecha === fecha);
+return visitas.find(v => v.dep === dep && v.fecha === fecha);
 }
-
 function renderListaVisitasDia(){
-  const fecha = document.getElementById('fecha-registro').value;
-  const cont = document.getElementById('lista-visitas-dia');
-  if(!fecha){ cont.innerHTML = '<div class="empty">Selecciona una fecha para ver los departamentos programados.</div>'; return; }
-  const dia = diaDeFecha(fecha);
-  document.getElementById('dia-registro').value = dia;
-  const deptos = departamentosDeFecha(fecha);
-  if(deptos.length === 0){
-    cont.innerHTML = '<div class="empty">Ningún departamento tiene visita programada en esta fecha según el horario del mes.</div>';
-    return;
-  }
-  cont.innerHTML = '';
-  deptos.forEach(dep=>{
-    const existente = visitaRegistradaHoy(dep, fecha);
-    const card = document.createElement('div');
-    card.className = 'visit-card' + (existente ? (existente.estado==='No se presentó' ? ' missed' : ' done') : '');
-    const estadoActual = existente ? existente.estado : '';
-    const horaActual = existente ? existente.hora : '';
-    const obsActual = existente ? existente.obs : '';
-    card.innerHTML = `
-      <h3>${dep} ${existente ? `<span class="badge ${existente.estado==='No se presentó'?'warn':(existente.estado==='Reprogramado'?'amber':'ok')}">${existente.estado}</span>` : '<span class="badge pend">Pendiente</span>'}</h3>
-      <div class="grid3">
-        <div>
-          <label class="field-label">Hora de llegada</label>
-          <input type="time" class="i-hora" value="${horaActual}">
-        </div>
-        <div>
-          <label class="field-label">Estado</label>
-          <select class="i-estado">
-            <option value="">— seleccionar —</option>
-            <option value="A tiempo" ${estadoActual==='A tiempo'?'selected':''}>A tiempo</option>
-            <option value="Tarde" ${estadoActual==='Tarde'?'selected':''}>Tarde</option>
-            <option value="No se presentó" ${estadoActual==='No se presentó'?'selected':''}>No se presentó</option>
-            <option value="Reprogramado" ${estadoActual==='Reprogramado'?'selected':''}>Reprogramado</option>
-          </select>
-        </div>
-        <div>
-          <label class="field-label">Observaciones</label>
-          <input type="text" class="i-obs" value="${obsActual.replace(/"/g,'&quot;')}" placeholder="Opcional">
-        </div>
-      </div>
-      <div class="row-actions">
-        <button class="btn small btn-guardar-visita">${existente ? 'Actualizar' : 'Registrar'}</button>
-      </div>
-    `;
-    card.querySelector('.btn-guardar-visita').addEventListener('click', async ()=>{
-      const hora = card.querySelector('.i-hora').value;
-      const estado = card.querySelector('.i-estado').value;
-      const obs = card.querySelector('.i-obs').value;
-      if(!estado){ toast('Selecciona un estado'); return; }
-      let reg = visitaRegistradaHoy(dep, fecha);
-      if(reg){
-        reg.hora = hora; reg.estado = estado; reg.obs = obs;
-      } else {
-        reg = { id: uid(), fecha, dia, dep, hora, estado, obs };
-        visitas.push(reg);
-      }
-      const ok = await storageSet(KEY_VISITAS, visitas, true);
-      toast(ok ? 'Visita registrada' : 'Error al guardar');
-      renderListaVisitasDia();
-      renderHistorial();
-    });
-    cont.appendChild(card);
-  });
+const fecha = document.getElementById('fecha-registro').value;
+const cont = document.getElementById('lista-visitas-dia');
+if(!fecha){ cont.innerHTML = '<div class="empty">Selecciona una fecha para ver los departamentos programados.</div>'; return; }
+const dia = diaDeFecha(fecha);
+document.getElementById('dia-registro').value = dia;
+const deptos = departamentosDeFecha(fecha);
+if(deptos.length === 0){
+cont.innerHTML = '<div class="empty">Ningún departamento tiene visita programada en esta fecha según el horario del mes.</div>';
+return;
 }
-
+cont.innerHTML = '';
+deptos.forEach(dep=>{
+const existente = visitaRegistradaHoy(dep, fecha);
+const card = document.createElement('div');
+card.className = 'visit-card' + (existente ? (existente.estado==='No se presentó' ? ' missed' : ' done') : '');
+const estadoActual = existente ? existente.estado : '';
+const horaActual = existente ? existente.hora : '';
+const obsActual = existente ? existente.obs : '';
+card.innerHTML = `
+<h3>${dep} ${existente ? `<span class="badge ${existente.estado==='No se presentó'?'warn':(existente.estado==='Reprogramado'?'amber':'ok')}">${existente.estado}</span>` : '<span class="badge pend">Pendiente</span>'}</h3>
+<div class="grid3">
+<div>
+<label class="field-label">Hora de llegada</label>
+<input type="time" class="i-hora" value="${horaActual}">
+</div>
+<div>
+<label class="field-label">Estado</label>
+<select class="i-estado">
+<option value="">— seleccionar —</option>
+<option value="A tiempo" ${estadoActual==='A tiempo'?'selected':''}>A tiempo</option>
+<option value="Tarde" ${estadoActual==='Tarde'?'selected':''}>Tarde</option>
+<option value="No se presentó" ${estadoActual==='No se presentó'?'selected':''}>No se presentó</option>
+<option value="Reprogramado" ${estadoActual==='Reprogramado'?'selected':''}>Reprogramado</option>
+</select>
+</div>
+<div>
+<label class="field-label">Observaciones</label>
+<input type="text" class="i-obs" value="${obsActual.replace(/"/g,'&quot;')}" placeholder="Opcional">
+</div>
+</div>
+<div class="row-actions">
+<button class="btn small btn-guardar-visita">${existente ? 'Actualizar' : 'Registrar'}</button>
+</div>
+`;
+card.querySelector('.btn-guardar-visita').addEventListener('click', async ()=>{
+const hora = card.querySelector('.i-hora').value;
+const estado = card.querySelector('.i-estado').value;
+const obs = card.querySelector('.i-obs').value;
+if(!estado){ toast('Selecciona un estado'); return; }
+let reg = visitaRegistradaHoy(dep, fecha);
+if(reg){
+reg.hora = hora; reg.estado = estado; reg.obs = obs;
+} else {
+reg = { id: uid(), fecha, dia, dep, hora, estado, obs };
+visitas.push(reg);
+}
+const ok = await storageSet(KEY_VISITAS, visitas, true);
+toast(ok ? 'Visita registrada' : 'Error al guardar');
+renderListaVisitasDia();
+renderHistorial();
+});
+cont.appendChild(card);
+});
+}
 function badgeClaseEstado(estado){
-  if(estado === 'A tiempo') return 'ok';
-  if(estado === 'No se presentó') return 'warn';
-  if(estado === 'Reprogramado') return 'amber';
-  return 'pend';
+if(estado === 'A tiempo') return 'ok';
+if(estado === 'No se presentó') return 'warn';
+if(estado === 'Reprogramado') return 'amber';
+return 'pend';
 }
-
 function renderHistorial(){
-  const tbody = document.querySelector('#tabla-historial tbody');
-  const filtroDepto = document.getElementById('filtro-depto').value;
-  const filtroEstado = document.getElementById('filtro-estado').value;
-  let lista = [...visitas].sort((a,b)=> b.fecha.localeCompare(a.fecha));
-  if(filtroDepto) lista = lista.filter(v=>v.dep===filtroDepto);
-  if(filtroEstado) lista = lista.filter(v=>v.estado===filtroEstado);
-  tbody.innerHTML = '';
-  document.getElementById('historial-empty').style.display = lista.length ? 'none' : 'block';
-  lista.forEach(v=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${v.fecha}</td>
-      <td>${v.dep}</td>
-      <td>${v.hora || '—'}</td>
-      <td><span class="badge ${badgeClaseEstado(v.estado)}">${v.estado}</span></td>
-      <td>${v.obs || '—'}</td>
-      <td><button class="btn ghost small btn-borrar" data-id="${v.id}">Eliminar</button></td>
-    `;
-    tr.querySelector('.btn-borrar').addEventListener('click', async ()=>{
-      visitas = visitas.filter(x=>x.id !== v.id);
-      await storageSet(KEY_VISITAS, visitas, true);
-      renderHistorial();
-      renderListaVisitasDia();
-      toast('Registro eliminado');
-    });
-    tbody.appendChild(tr);
-  });
+const tbody = document.querySelector('#tabla-historial tbody');
+const filtroDepto = document.getElementById('filtro-depto').value;
+const filtroEstado = document.getElementById('filtro-estado').value;
+let lista = [...visitas].sort((a,b)=> b.fecha.localeCompare(a.fecha));
+if(filtroDepto) lista = lista.filter(v=>v.dep===filtroDepto);
+if(filtroEstado) lista = lista.filter(v=>v.estado===filtroEstado);
+tbody.innerHTML = '';
+document.getElementById('historial-empty').style.display = lista.length ? 'none' : 'block';
+lista.forEach(v=>{
+const tr = document.createElement('tr');
+tr.innerHTML = `
+<td>${v.fecha}</td>
+<td>${v.dep}</td>
+<td>${v.hora || '—'}</td>
+<td><span class="badge ${badgeClaseEstado(v.estado)}">${v.estado}</span></td>
+<td>${v.obs || '—'}</td>
+<td><button class="btn ghost small btn-borrar" data-id="${v.id}">Eliminar</button></td>
+`;
+tr.querySelector('.btn-borrar').addEventListener('click', async ()=>{
+visitas = visitas.filter(x=>x.id !== v.id);
+await storageSet(KEY_VISITAS, visitas, true);
+renderHistorial();
+renderListaVisitasDia();
+toast('Registro eliminado');
+});
+tbody.appendChild(tr);
+});
 }
-
 function renderCalendario(){
-  const [y,m] = mesActivo.split('-').map(Number);
-  document.getElementById('cal-titulo').textContent = `${MESES_NOMBRE[m-1]} ${y} — visitas programadas a bodega`;
-  const grid = document.getElementById('cal-grid');
-  grid.innerHTML = '';
-  DIAS.slice(0,7).forEach(d=>{
-    const el = document.createElement('div');
-    el.className = 'cal-dow';
-    el.textContent = d.slice(0,3);
-    grid.appendChild(el);
-  });
-  const primerDia = new Date(y, m-1, 1);
-  const inicioSemana = (primerDia.getDay() + 6) % 7; // lunes=0
-  const diasEnMes = new Date(y, m, 0).getDate();
-  for(let i=0;i<inicioSemana;i++){
-    const blank = document.createElement('div');
-    blank.className = 'cal-cell blank';
-    grid.appendChild(blank);
-  }
-  for(let dia=1; dia<=diasEnMes; dia++){
-    const fechaISO = `${y}-${String(m).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
-    const cell = document.createElement('div');
-    cell.className = 'cal-cell';
-    const num = document.createElement('div');
-    num.className = 'num';
-    num.textContent = dia;
-    cell.appendChild(num);
-    departamentosDeFecha(fechaISO).forEach(dep=>{
-      const chip = document.createElement('span');
-      chip.className = 'cal-chip';
-      chip.textContent = dep;
-      cell.appendChild(chip);
-    });
-    grid.appendChild(cell);
-  }
+const [y,m] = mesActivo.split('-').map(Number);
+document.getElementById('cal-titulo').textContent = `${MESES_NOMBRE[m-1]} ${y} — visitas programadas a bodega`;
+const grid = document.getElementById('cal-grid');
+grid.innerHTML = '';
+DIAS.slice(0,7).forEach(d=>{
+const el = document.createElement('div');
+el.className = 'cal-dow';
+el.textContent = d.slice(0,3);
+grid.appendChild(el);
+});
+const primerDia = new Date(y, m-1, 1);
+const inicioSemana = (primerDia.getDay() + 6) % 7; // lunes=0
+const diasEnMes = new Date(y, m, 0).getDate();
+for(let i=0;i<inicioSemana;i++){
+const blank = document.createElement('div');
+blank.className = 'cal-cell blank';
+grid.appendChild(blank);
 }
-
+for(let dia=1; dia<=diasEnMes; dia++){
+const fechaISO = `${y}-${String(m).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
+const cell = document.createElement('div');
+cell.className = 'cal-cell';
+const num = document.createElement('div');
+num.className = 'num';
+num.textContent = dia;
+cell.appendChild(num);
+departamentosDeFecha(fechaISO).forEach(dep=>{
+const chip = document.createElement('span');
+chip.className = 'cal-chip';
+chip.textContent = dep;
+cell.appendChild(chip);
+});
+grid.appendChild(cell);
+}
+}
 function llenarFiltroDeptos(){
-  const sel = document.getElementById('filtro-depto');
-  DEPARTAMENTOS.forEach(dep=>{
-    const o = document.createElement('option');
-    o.value = dep; o.textContent = dep;
-    sel.appendChild(o);
-  });
+const sel = document.getElementById('filtro-depto');
+DEPARTAMENTOS.forEach(dep=>{
+const o = document.createElement('option');
+o.value = dep; o.textContent = dep;
+sel.appendChild(o);
+});
 }
-
 function exportarCSV(){
-  const filas = [['Fecha','Día','Departamento','Hora llegada','Estado','Observaciones']];
-  [...visitas].sort((a,b)=>a.fecha.localeCompare(b.fecha)).forEach(v=>{
-    filas.push([v.fecha, v.dia, v.dep, v.hora||'', v.estado, (v.obs||'').replace(/\n/g,' ')]);
-  });
-  const csv = filas.map(f=>f.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob = new Blob(["\ufeff"+csv], {type:'text/csv;charset=utf-8;'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = `historial_visitas_bodega_${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
+const filas = [['Fecha','Día','Departamento','Hora llegada','Estado','Observaciones']];
+[...visitas].sort((a,b)=>a.fecha.localeCompare(b.fecha)).forEach(v=>{
+filas.push([v.fecha, v.dia, v.dep, v.hora||'', v.estado, (v.obs||'').replace(/\n/g,' ')]);
+});
+const csv = filas.map(f=>f.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+const blob = new Blob(["\ufeff"+csv], {type:'text/csv;charset=utf-8;'});
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url; a.download = `historial_visitas_bodega_${new Date().toISOString().slice(0,10)}.csv`;
+a.click();
+URL.revokeObjectURL(url);
 }
-
 function activarTab(nombre){
-  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('active', b.dataset.tab === nombre));
-  document.getElementById('panel-horario').style.display = nombre==='horario' ? 'block' : 'none';
-  document.getElementById('panel-calendario').style.display = nombre==='calendario' ? 'block' : 'none';
-  document.getElementById('panel-registrar').style.display = nombre==='registrar' ? 'block' : 'none';
-  document.getElementById('panel-historial').style.display = nombre==='historial' ? 'block' : 'none';
-  if(nombre === 'calendario') renderCalendario();
+document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('active', b.dataset.tab === nombre));
+document.getElementById('panel-horario').style.display = nombre==='horario' ? 'block' : 'none';
+document.getElementById('panel-calendario').style.display = nombre==='calendario' ? 'block' : 'none';
+document.getElementById('panel-registrar').style.display = nombre==='registrar' ? 'block' : 'none';
+document.getElementById('panel-historial').style.display = nombre==='historial' ? 'block' : 'none';
+if(nombre === 'calendario') renderCalendario();
 }
-
 document.querySelectorAll('nav.tabs button').forEach(b=>{
-  b.addEventListener('click', ()=>activarTab(b.dataset.tab));
+b.addEventListener('click', ()=>activarTab(b.dataset.tab));
 });
 document.getElementById('btn-copiar-mes-anterior').addEventListener('click', copiarMesAnterior);
 document.getElementById('fecha-registro').addEventListener('change', renderListaVisitasDia);
 document.getElementById('filtro-depto').addEventListener('change', renderHistorial);
 document.getElementById('filtro-estado').addEventListener('change', renderHistorial);
 document.getElementById('btn-exportar').addEventListener('click', exportarCSV);
-document.getElementById('btn-imprimir').addEventListener('click', ()=>window.print());
 document.getElementById('btn-descargar-png').addEventListener('click', descargarCalendarioPNG);
-
 document.getElementById('mes-horario').addEventListener('change', (e)=>{
-  mesActivo = e.target.value;
-  document.getElementById('mes-calendario').value = mesActivo;
-  cargarHorarioMes(mesActivo);
+mesActivo = e.target.value;
+document.getElementById('mes-calendario').value = mesActivo;
+cargarHorarioMes(mesActivo);
 });
 document.getElementById('mes-calendario').addEventListener('change', (e)=>{
-  mesActivo = e.target.value;
-  document.getElementById('mes-horario').value = mesActivo;
-  cargarHorarioMes(mesActivo);
+mesActivo = e.target.value;
+document.getElementById('mes-horario').value = mesActivo;
+cargarHorarioMes(mesActivo);
 });
 
 async function init(){
-  document.getElementById('mes-horario').value = mesActivo;
-  document.getElementById('mes-calendario').value = mesActivo;
-  const h = await storageGet(keyHorarioMes(mesActivo), true);
-  horario = h || {};
-  const v = await storageGet(KEY_VISITAS, true);
-  visitas = v || [];
-  renderHorarioTabla();
-  llenarFiltroDeptos();
-  const hoy = new Date();
-  const iso = hoy.toISOString().slice(0,10);
-  document.getElementById('fecha-registro').value = iso;
-  renderListaVisitasDia();
-  renderHistorial();
-  renderCalendario();
-  actualizarIndicadorPendientes();
-  sincronizarCola();
+document.getElementById('mes-horario').value = mesActivo;
+document.getElementById('mes-calendario').value = mesActivo;
+const h = await storageGet(keyHorarioMes(mesActivo), true);
+horario = h || {};
+const v = await storageGet(KEY_VISITAS, true);
+visitas = v || [];
+renderHorarioTabla();
+llenarFiltroDeptos();
+const hoy = new Date();
+const iso = hoy.toISOString().slice(0,10);
+document.getElementById('fecha-registro').value = iso;
+renderListaVisitasDia();
+renderHistorial();
+renderCalendario();
+actualizarIndicadorPendientes();
+sincronizarCola();
 }
 init();
 
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW no registrado:', e));
-  });
+window.addEventListener('load', ()=>{
+navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW no registrado:', e));
+});
 }
 </script>
-
 </body>
 </html>
