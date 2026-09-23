@@ -3,7 +3,7 @@
 // Los datos (horario/visitas) se guardan aparte en localStorage y se
 // sincronizan solos cuando vuelve la conexión (ver index.html).
 
-const CACHE_NAME = 'bodega-visitas-v1';
+const CACHE_NAME = 'bodega-visitas-v3';
 const ARCHIVOS_CACHE = [
   './index.html',
   './manifest.json',
