@@ -32,18 +32,27 @@
 }
 *{box-sizing:border-box;}
 body{
-margin:0; font-family:var(--sans); background:var(--paper); color:var(--ink);
+margin:0; font-family:var(--sans); color:var(--ink);
+background-color:var(--paper);
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%236C2BD9' stroke-opacity='0.09' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 40h30l-3 36H23z'/%3E%3Cpath d='M28 40v-6a7 7 0 0 1 14 0v6'/%3E%3Cpath d='M120 30a6 6 0 1 1 6 6v6l-22 14h44l-22-14'/%3E%3Cpath d='M110 120l20-20h18v18l-20 20z'/%3E%3Ccircle cx='141' cy='107' r='2.5'/%3E%3Cpath d='M30 130l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z'/%3E%3Cpath d='M80 80h14v22H80z'/%3E%3Cpath d='M84 80v-4h6v4'/%3E%3C/g%3E%3C/svg%3E");
+background-size:180px 180px;
 padding:0 0 60px 0;
 }
 .stripe{
 height:10px;
-background:repeating-linear-gradient(135deg, var(--blue) 0 14px, var(--ink) 14px 28px);
+background:repeating-linear-gradient(135deg, #9D4EDD 0 14px, var(--ink) 14px 28px);
 }
 header{
-padding:28px 32px 20px; background:var(--ink); color:#f1ede2;
+padding:28px 32px 20px; color:#f1ede2;
+background-color:var(--ink);
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.10' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 40h30l-3 36H23z'/%3E%3Cpath d='M28 40v-6a7 7 0 0 1 14 0v6'/%3E%3Cpath d='M120 30a6 6 0 1 1 6 6v6l-22 14h44l-22-14'/%3E%3Cpath d='M110 120l20-20h18v18l-20 20z'/%3E%3Ccircle cx='141' cy='107' r='2.5'/%3E%3Cpath d='M30 130l6 12 13 2-9 9 2 13-12-6-12 6 2-13-9-9 13-2z'/%3E%3Cpath d='M80 80h14v22H80z'/%3E%3Cpath d='M84 80v-4h6v4'/%3E%3C/g%3E%3C/svg%3E"), linear-gradient(120deg, #2A1B3D 0%, #4A1D96 60%, #9D4EDD 100%);
+background-size:180px 180px, cover;
 }
+header .head-row{ display:flex; align-items:center; gap:18px; }
+header .logo{ height:56px; width:auto; background:#fff; border-radius:10px; padding:6px 10px; }
+header .lema{ font-style:italic; color:#E4D2FB; font-size:14px; margin-top:4px; }
 header .eyebrow{
-font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:var(--amber);
+font-family:var(--mono); font-size:12px; letter-spacing:.08em; color:#D8B8FF;
 text-transform:uppercase; margin:0 0 6px;
 }
 header h1{ margin:0; font-size:24px; font-weight:600; }
@@ -138,7 +147,32 @@ opacity:0; pointer-events:none; transition:opacity .25s;
 .fecha-chip{ display:inline-flex; align-items:center; gap:4px; font-size:12px; background:var(--amber-pale); color:var(--amber-dark); padding:3px 6px 3px 10px; border-radius:14px; white-space:nowrap; }
 .chip-x{ background:none; border:none; color:var(--amber-dark); font-size:15px; cursor:pointer; line-height:1; padding:0 2px; font-weight:700; }
 .chip-x:hover{ color:var(--warn); }
+.chip-enc{ background:none; border:none; cursor:pointer; font:inherit; color:inherit; padding:0; text-align:left; }
+.chip-enc .enc{ font-weight:600; }
+.chip-enc .enc.vacio{ font-weight:400; font-style:italic; opacity:.75; }
+.chip-enc:hover .enc{ text-decoration:underline; }
+.cal-chip .cal-enc{ display:block; font-size:10px; color:var(--ink-soft); }
+.enc-card{ font-size:13px; color:var(--ink-soft); margin:-4px 0 10px; }
+@media print{
+@page{ size: letter landscape; margin:10mm; }
+body{ background:#fff; padding:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.stripe, header, nav.tabs, .footer-note, .toast, #panel-calendario .section-title, #panel-calendario .hint, #panel-calendario .mes-bar{ display:none !important; }
+section.panel:not(#panel-calendario){ display:none !important; }
+#panel-calendario{ display:block !important; border:none; padding:0; }
+.wrap{ max-width:none; padding:0; }
+#captura-calendario{ padding:0 !important; }
+.cal-titulo{ font-size:16px; margin-bottom:8px; }
+.cal-grid{ gap:0; background:#fff; border:none; border-top:1px solid #999; border-left:1px solid #999; }
+.cal-dow, .cal-cell{ border-right:1px solid #999; border-bottom:1px solid #999; }
+.cal-cell{ min-height:26mm; padding:4px; break-inside:avoid; }
+.cal-cell.blank{ background:#f3f0f7; }
+.cal-chip{ font-size:10px; }
+.cal-chip .cal-enc{ font-size:9px; }
+.print-pie{ display:block !important; }
+}
+.print-pie{ display:none; font-size:10px; color:var(--ink-soft); margin-top:6px; text-align:right; }
 @media (max-width:640px){
+header .logo{ height:42px; }
 .grid2, .grid3{ grid-template-columns:1fr; }
 header{ padding:20px; } .wrap{ padding:0 12px; }
 .cal-cell{ min-height:64px; }
@@ -148,9 +182,15 @@ header{ padding:20px; } .wrap{ padding:0 12px; }
 <body>
 <div class="stripe"></div>
 <header>
+<div class="head-row">
+<img class="logo" src="logo-shopping.png" alt="Shopping Center" onerror="this.remove()">
+<div>
 <p class="eyebrow">Operaciones G. — Shopping Center</p>
 <h1>Horario de visitas a bodega</h1>
+<p class="lema">Marcando tendencia en Chiriquí</p>
 <p>VISITA DE SUPERVISORES EN BODEGA 3:00 A 6:00 · 13 departamentos</p>
+</div>
+</div>
 </header>
 <div class="wrap">
 <nav class="tabs">
@@ -159,10 +199,11 @@ header{ padding:20px; } .wrap{ padding:0 12px; }
 <button data-tab="registrar">Registrar visita</button>
 <button data-tab="historial">Historial</button>
 </nav>
-
+ 
 <section class="panel" id="panel-horario">
 <h2 class="section-title">Asignación de fechas <span class="tag">Editable por supervisora de bodega</span></h2>
-<p class="hint">El horario se define por mes. A cada departamento se le asignan una o varias fechas específicas del mes, dentro del horario de 3:00 p.m. a 6:00 p.m. Los departamentos que se repiten durante el mes pueden tener varias fechas; los que visitan una sola vez, solo una.</p>
+<p class="hint">El horario se define por mes. A cada departamento se le asignan una o varias fechas específicas del mes, dentro del horario de 3:00 p.m. a 6:00 p.m. Los departamentos que se repiten durante el mes pueden tener varias fechas; los que visitan una sola vez, solo una. Cada fecha lleva el nombre del personal a cargo de esa visita; para cambiarlo, toca la fecha.</p>
+<datalist id="lista-encargados"></datalist>
 <div class="mes-bar">
 <label for="mes-horario">Mes</label>
 <input type="month" id="mes-horario">
@@ -173,7 +214,7 @@ header{ padding:20px; } .wrap{ padding:0 12px; }
 <tbody></tbody>
 </table>
 </section>
-
+ 
 <section class="panel" id="panel-calendario" style="display:none;">
 <h2 class="section-title">Calendario de visitas a bodega</h2>
 <p class="hint">Vista mensual del horario asignado. Cambia de mes o descarga la imagen para colocarla en bodega.</p>
@@ -181,16 +222,18 @@ header{ padding:20px; } .wrap{ padding:0 12px; }
 <label for="mes-calendario">Mes</label>
 <input type="month" id="mes-calendario">
 <button class="btn ghost" id="btn-descargar-png">Descargar imagen (PNG)</button>
+<button class="btn" id="btn-imprimir">Imprimir calendario</button>
 </div>
 <div id="captura-calendario" style="background:#ffffff; padding:12px;">
 <p class="cal-titulo" id="cal-titulo"></p>
 <div class="cal-grid" id="cal-grid"></div>
+<p class="print-pie">Visita de supervisores en bodega de 3:00 a 6:00 p.m. · Operaciones G. — Shopping Center</p>
 </div>
 </section>
-
+ 
 <section class="panel" id="panel-registrar" style="display:none;">
 <h2 class="section-title">Registrar cumplimiento de visita</h2>
-<p class="hint">Selecciona la fecha para ver qué departamentos tienen visita programada ese día, según el horario semanal.</p>
+<p class="hint">Selecciona la fecha para ver qué departamentos tienen visita programada ese día, según el horario asignado del mes.</p>
 <div class="grid2" style="max-width:340px; margin-bottom:18px;">
 <div>
 <label class="field-label">Fecha</label>
@@ -203,7 +246,7 @@ header{ padding:20px; } .wrap{ padding:0 12px; }
 </div>
 <div id="lista-visitas-dia"></div>
 </section>
-
+ 
 <section class="panel" id="panel-historial" style="display:none;">
 <h2 class="section-title">Historial de visitas</h2>
 <p class="hint">Consulta y filtra el registro de cumplimiento por departamento o estado.</p>
@@ -219,20 +262,20 @@ header{ padding:20px; } .wrap{ padding:0 12px; }
 <button class="btn ghost small" id="btn-exportar">Exportar CSV</button>
 </div>
 <table id="tabla-historial">
-<thead><tr><th>Fecha</th><th>Departamento</th><th>Hora llegada</th><th>Estado</th><th>Observaciones</th><th></th></tr></thead>
+<thead><tr><th>Fecha</th><th>Departamento</th><th>A cargo</th><th>Hora llegada</th><th>Estado</th><th>Observaciones</th><th></th></tr></thead>
 <tbody></tbody>
 </table>
 <div id="historial-empty" class="empty" style="display:none;">Aún no hay visitas registradas.</div>
 </section>
-
+ 
 <p class="footer-note">
 Datos compartidos entre todos los usuarios de esta herramienta · Guardado automático
 <span id="indicador-offline" style="display:none; margin-left:8px; color:var(--warn);"></span>
 </p>
 </div>
-
+ 
 <div class="toast" id="toast"></div>
-
+ 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 const DEPARTAMENTOS = ["Caballero","Escolar","Cosmético","Niña","Bonage","Bebé","Popular","Boutique","Ropa interior","Niño","Uniforme de enfermería","Hogar","Juguetería"];
@@ -256,15 +299,15 @@ t.classList.add('show');
 setTimeout(()=>t.classList.remove('show'), 2200);
 }
 function uid(){ return 'v' + Date.now() + Math.random().toString(16).slice(2,7); }
-
+ 
 // ==== Conexión con Google Apps Script (reemplaza a window.storage) ====
 // Pega aquí la URL de tu implementación de Apps Script (termina en /exec)
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyriAZj4_4G6XkcmNFubrFsvEslIX22LefthYVI6GE3-__DPVyC8S8vvId1DjRqeuRD/exec";
-
+ 
 const CACHE_PREFIX = "bodega-cache-";
 const COLA_KEY = "bodega-cola-pendiente";
 let sincronizando = false;
-
+ 
 function leerCacheLocal(key){
 try{
 const raw = localStorage.getItem(CACHE_PREFIX + key);
@@ -286,7 +329,7 @@ cola.push({ key, value, ts: Date.now() });
 guardarCola(cola);
 actualizarIndicadorPendientes();
 }
-
+ 
 async function storageGet(key){
 // Intenta traer del servidor; si falla (sin conexión), usa la última copia local.
 try{
@@ -302,7 +345,7 @@ console.warn('Sin conexión o error, usando copia local para', key, e);
 return leerCacheLocal(key);
 }
 }
-
+ 
 async function storageSet(key, value){
 guardarCacheLocal(key, value); // siempre guarda local de inmediato
 try{
@@ -319,7 +362,7 @@ encolarCambio(key, value);
 return true; // el dato ya está seguro localmente y se reintentará
 }
 }
-
+ 
 async function sincronizarCola(){
 if(sincronizando) return;
 const cola = leerCola();
@@ -345,7 +388,7 @@ if(restantes.length === 0 && cola.length > 0){
 toast('Cambios pendientes sincronizados ✓');
 }
 }
-
+ 
 function actualizarIndicadorPendientes(){
 const n = leerCola().length;
 const el = document.getElementById('indicador-offline');
@@ -357,10 +400,10 @@ el.textContent = `⏳ ${n} cambio(s) sin sincronizar`;
 el.style.display = 'none';
 }
 }
-
+ 
 window.addEventListener('online', sincronizarCola);
 setInterval(sincronizarCola, 20000);
-
+ 
 function diaDeFecha(fechaStr){
 if(!fechaStr) return '';
 const [y,m,d] = fechaStr.split('-').map(Number);
@@ -372,6 +415,34 @@ function limitesDelMes(mes){
 const [y,m] = mes.split('-').map(Number);
 const diasEnMes = new Date(y, m, 0).getDate();
 return { min: `${mes}-01`, max: `${mes}-${String(diasEnMes).padStart(2,'0')}` };
+}
+// ==== Personal a cargo de cada visita ====
+// Se guarda dentro del mismo horario del mes, en horario.__encargados[dep][fecha] = "Nombre"
+const KEY_ENC = '__encargados';
+function encargadosObj(){
+if(!horario[KEY_ENC] || typeof horario[KEY_ENC] !== 'object') horario[KEY_ENC] = {};
+return horario[KEY_ENC];
+}
+function getEncargado(dep, fecha){
+const e = (horario[KEY_ENC]||{})[dep];
+return (e && e[fecha]) || '';
+}
+function setEncargado(dep, fecha, nombre){
+const enc = encargadosObj();
+nombre = (nombre||'').trim();
+if(!enc[dep]) enc[dep] = {};
+if(nombre) enc[dep][fecha] = nombre; else delete enc[dep][fecha];
+if(Object.keys(enc[dep]).length === 0) delete enc[dep];
+}
+function actualizarListaEncargados(){
+const nombres = new Set();
+Object.values(horario[KEY_ENC]||{}).forEach(porFecha=>Object.values(porFecha||{}).forEach(n=>n && nombres.add(n)));
+visitas.forEach(v=>v.encargado && nombres.add(v.encargado));
+const dl = document.getElementById('lista-encargados');
+dl.innerHTML = '';
+[...nombres].sort((a,b)=>a.localeCompare(b,'es')).forEach(n=>{
+const o = document.createElement('option'); o.value = n; dl.appendChild(o);
+});
 }
 function renderChipsFechas(dep, contenedor){
 contenedor.innerHTML = '';
@@ -388,9 +459,23 @@ const [, mm, dd] = fecha.split('-');
 const diaSemana = diaDeFecha(fecha).slice(0,3);
 const chip = document.createElement('span');
 chip.className = 'fecha-chip';
-chip.innerHTML = `${dd}/${mm} · ${diaSemana} <button class="chip-x" aria-label="Quitar fecha">×</button>`;
+chip.innerHTML = `<button class="chip-enc" title="Cambiar personal a cargo">${dd}/${mm} · ${diaSemana} · <span class="enc"></span></button> <button class="chip-x" aria-label="Quitar fecha">×</button>`;
+const encSpan = chip.querySelector('.enc');
+const encActual = getEncargado(dep, fecha);
+encSpan.textContent = encActual || 'sin encargado';
+encSpan.classList.toggle('vacio', !encActual);
+chip.querySelector('.chip-enc').addEventListener('click', async ()=>{
+const nuevo = prompt(`Personal a cargo de la visita de ${dep} el ${dd}/${mm}:`, getEncargado(dep, fecha));
+if(nuevo === null) return;
+setEncargado(dep, fecha, nuevo);
+renderChipsFechas(dep, contenedor);
+renderCalendario();
+actualizarListaEncargados();
+await persistirHorario();
+});
 chip.querySelector('.chip-x').addEventListener('click', async ()=>{
 horario[dep] = (horario[dep]||[]).filter(f=>f!==fecha);
+setEncargado(dep, fecha, '');
 renderChipsFechas(dep, contenedor);
 renderCalendario();
 await persistirHorario();
@@ -411,9 +496,10 @@ const tdFechas = document.createElement('td');
 const chipsDiv = document.createElement('div');
 chipsDiv.className = 'chips';
 const addRow = document.createElement('div');
-addRow.style.cssText = 'display:flex; gap:6px; margin-top:8px;';
+addRow.style.cssText = 'display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;';
 addRow.innerHTML = `
 <input type="date" class="i-nueva-fecha" min="${min}" max="${max}" style="max-width:170px;">
+<input type="text" class="i-encargado" list="lista-encargados" placeholder="Personal a cargo" style="max-width:200px;">
 <button class="btn ghost small btn-agregar-fecha">Agregar</button>
 `;
 tdFechas.appendChild(chipsDiv);
@@ -426,18 +512,24 @@ const input = addRow.querySelector('.i-nueva-fecha');
 const val = input.value;
 if(!val){ toast('Selecciona una fecha'); return; }
 if(!val.startsWith(mesActivo)){ toast('La fecha debe estar dentro del mes seleccionado'); return; }
+const inputEnc = addRow.querySelector('.i-encargado');
+const nombreEnc = inputEnc.value.trim();
+if(!nombreEnc){ toast('Escribe el personal a cargo de la visita'); inputEnc.focus(); return; }
 if(!horario[dep].includes(val)){
 horario[dep].push(val);
 horario[dep].sort();
 }
+setEncargado(dep, val, nombreEnc);
+actualizarListaEncargados();
 input.value = '';
+inputEnc.value = '';
 renderChipsFechas(dep, chipsDiv);
 renderCalendario();
 await persistirHorario();
 });
 });
 }
-
+ 
 async function descargarCalendarioPNG(){
 const panel = document.getElementById('panel-calendario');
 const estabaOculto = panel.style.display === 'none';
@@ -477,7 +569,13 @@ panel.style.display = 'none';
 }
 }
 }
-
+ 
+function imprimirCalendario(){
+activarTab('calendario');
+renderCalendario();
+setTimeout(()=>window.print(), 80);
+}
+ 
 async function persistirHorario(){
 const ok = await storageSet(keyHorarioMes(mesActivo), horario, true);
 if(!ok){ toast('No se pudo guardar el horario'); return; }
@@ -486,6 +584,7 @@ renderListaVisitasDia();
 async function cargarHorarioMes(mes){
 const h = await storageGet(keyHorarioMes(mes), true);
 horario = h || {};
+actualizarListaEncargados();
 renderHorarioTabla();
 renderListaVisitasDia();
 renderCalendario();
@@ -493,10 +592,23 @@ renderCalendario();
 function patronSemanalDe(horarioObj){
 const patron = {};
 Object.entries(horarioObj).forEach(([dep, fechas])=>{
-const dias = new Set((fechas||[]).map(f=>diaDeFecha(f)));
+if(dep === KEY_ENC || !Array.isArray(fechas)) return;
+const dias = new Set(fechas.map(f=>diaDeFecha(f)));
 patron[dep] = [...dias];
 });
 return patron;
+}
+// Encargado por departamento y día de la semana (el de la última fecha de ese día en el mes anterior)
+function encargadosPorDiaDe(horarioObj){
+const res = {};
+const enc = horarioObj[KEY_ENC] || {};
+Object.entries(enc).forEach(([dep, porFecha])=>{
+Object.keys(porFecha||{}).sort().forEach(f=>{
+if(!porFecha[f]) return;
+(res[dep] = res[dep] || {})[diaDeFecha(f)] = porFecha[f];
+});
+});
+return res;
 }
 function fechasParaPatronEnMes(patron, mes){
 const [y,m] = mes.split('-').map(Number);
@@ -524,7 +636,15 @@ toast('No hay horario guardado para el mes anterior');
 return;
 }
 const patron = patronSemanalDe(h);
+const encPorDia = encargadosPorDiaDe(h);
 horario = fechasParaPatronEnMes(patron, mesActivo);
+Object.entries(horario).forEach(([dep, fechas])=>{
+fechas.forEach(f=>{
+const n = (encPorDia[dep]||{})[diaDeFecha(f)];
+if(n) setEncargado(dep, f, n);
+});
+});
+actualizarListaEncargados();
 renderHorarioTabla();
 renderCalendario();
 await persistirHorario();
@@ -581,6 +701,11 @@ card.innerHTML = `
 <button class="btn small btn-guardar-visita">${existente ? 'Actualizar' : 'Registrar'}</button>
 </div>
 `;
+const encProg = getEncargado(dep, fecha);
+const pEnc = document.createElement('p');
+pEnc.className = 'enc-card';
+pEnc.textContent = 'Personal a cargo: ' + (encProg || 'sin asignar');
+card.querySelector('h3').after(pEnc);
 card.querySelector('.btn-guardar-visita').addEventListener('click', async ()=>{
 const hora = card.querySelector('.i-hora').value;
 const estado = card.querySelector('.i-estado').value;
@@ -588,9 +713,9 @@ const obs = card.querySelector('.i-obs').value;
 if(!estado){ toast('Selecciona un estado'); return; }
 let reg = visitaRegistradaHoy(dep, fecha);
 if(reg){
-reg.hora = hora; reg.estado = estado; reg.obs = obs;
+reg.hora = hora; reg.estado = estado; reg.obs = obs; reg.encargado = encProg;
 } else {
-reg = { id: uid(), fecha, dia, dep, hora, estado, obs };
+reg = { id: uid(), fecha, dia, dep, encargado: encProg, hora, estado, obs };
 visitas.push(reg);
 }
 const ok = await storageSet(KEY_VISITAS, visitas, true);
@@ -607,6 +732,10 @@ if(estado === 'No se presentó') return 'warn';
 if(estado === 'Reprogramado') return 'amber';
 return 'pend';
 }
+function getEncargadoHistorico(v){
+// Para registros antiguos sin encargado guardado: si la fecha es del mes cargado, usa el asignado.
+return v.fecha && v.fecha.startsWith(mesActivo) ? getEncargado(v.dep, v.fecha) : '';
+}
 function renderHistorial(){
 const tbody = document.querySelector('#tabla-historial tbody');
 const filtroDepto = document.getElementById('filtro-depto').value;
@@ -621,11 +750,13 @@ const tr = document.createElement('tr');
 tr.innerHTML = `
 <td>${v.fecha}</td>
 <td>${v.dep}</td>
+<td class="td-enc"></td>
 <td>${v.hora || '—'}</td>
 <td><span class="badge ${badgeClaseEstado(v.estado)}">${v.estado}</span></td>
 <td>${v.obs || '—'}</td>
 <td><button class="btn ghost small btn-borrar" data-id="${v.id}">Eliminar</button></td>
 `;
+tr.querySelector('.td-enc').textContent = v.encargado || getEncargadoHistorico(v) || '—';
 tr.querySelector('.btn-borrar').addEventListener('click', async ()=>{
 visitas = visitas.filter(x=>x.id !== v.id);
 await storageSet(KEY_VISITAS, visitas, true);
@@ -667,9 +798,22 @@ departamentosDeFecha(fechaISO).forEach(dep=>{
 const chip = document.createElement('span');
 chip.className = 'cal-chip';
 chip.textContent = dep;
+const enc = getEncargado(dep, fechaISO);
+if(enc){
+const s = document.createElement('span');
+s.className = 'cal-enc';
+s.textContent = enc;
+chip.appendChild(s);
+}
 cell.appendChild(chip);
 });
 grid.appendChild(cell);
+}
+const resto = (inicioSemana + diasEnMes) % 7;
+for(let i=0; resto && i<7-resto; i++){
+const blank = document.createElement('div');
+blank.className = 'cal-cell blank';
+grid.appendChild(blank);
 }
 }
 function llenarFiltroDeptos(){
@@ -681,9 +825,9 @@ sel.appendChild(o);
 });
 }
 function exportarCSV(){
-const filas = [['Fecha','Día','Departamento','Hora llegada','Estado','Observaciones']];
+const filas = [['Fecha','Día','Departamento','Personal a cargo','Hora llegada','Estado','Observaciones']];
 [...visitas].sort((a,b)=>a.fecha.localeCompare(b.fecha)).forEach(v=>{
-filas.push([v.fecha, v.dia, v.dep, v.hora||'', v.estado, (v.obs||'').replace(/\n/g,' ')]);
+filas.push([v.fecha, v.dia, v.dep, v.encargado || getEncargadoHistorico(v) || '', v.hora||'', v.estado, (v.obs||'').replace(/\n/g,' ')]);
 });
 const csv = filas.map(f=>f.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
 const blob = new Blob(["\ufeff"+csv], {type:'text/csv;charset=utf-8;'});
@@ -710,6 +854,7 @@ document.getElementById('filtro-depto').addEventListener('change', renderHistori
 document.getElementById('filtro-estado').addEventListener('change', renderHistorial);
 document.getElementById('btn-exportar').addEventListener('click', exportarCSV);
 document.getElementById('btn-descargar-png').addEventListener('click', descargarCalendarioPNG);
+document.getElementById('btn-imprimir').addEventListener('click', imprimirCalendario);
 document.getElementById('mes-horario').addEventListener('change', (e)=>{
 mesActivo = e.target.value;
 document.getElementById('mes-calendario').value = mesActivo;
@@ -720,7 +865,7 @@ mesActivo = e.target.value;
 document.getElementById('mes-horario').value = mesActivo;
 cargarHorarioMes(mesActivo);
 });
-
+ 
 async function init(){
 document.getElementById('mes-horario').value = mesActivo;
 document.getElementById('mes-calendario').value = mesActivo;
@@ -728,10 +873,11 @@ const h = await storageGet(keyHorarioMes(mesActivo), true);
 horario = h || {};
 const v = await storageGet(KEY_VISITAS, true);
 visitas = v || [];
+actualizarListaEncargados();
 renderHorarioTabla();
 llenarFiltroDeptos();
 const hoy = new Date();
-const iso = hoy.toISOString().slice(0,10);
+const iso = `${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}-${String(hoy.getDate()).padStart(2,'0')}`;
 document.getElementById('fecha-registro').value = iso;
 renderListaVisitasDia();
 renderHistorial();
@@ -740,7 +886,7 @@ actualizarIndicadorPendientes();
 sincronizarCola();
 }
 init();
-
+ 
 if('serviceWorker' in navigator){
 window.addEventListener('load', ()=>{
 navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW no registrado:', e));
@@ -749,3 +895,4 @@ navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW no registrad
 </script>
 </body>
 </html>
+ 
